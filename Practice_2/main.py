@@ -9,7 +9,17 @@ class PyElement:
     def add_child(self, child):
         self.children.append(child)
 
-    def display(self):
+    def digraph(self):
+
+        for child in self.children:
+            print(" " * 6 + self.name + " -> ", end='')
+            print(child.name)
+
+        for child in self.children:
+            child.digraph()
+
+
+    def graph(self):
         if self.children:
             print(" " * 7 + self.name + " -- { ", end='')
             temp = self
@@ -21,7 +31,8 @@ class PyElement:
                 i += 1
             print(" }")
             for child in temp.children:
-                child.display()
+                child.graph()
+
 
     def find_element(self, name):
         if self.name == name:
@@ -56,6 +67,6 @@ if __name__ == "__main__":
     zip_file_path = "Windows11.zip"
     get_full_path(zip_file_path)
 
-    print(zip_file_path + "{")
-    root.display()
+    print("digraph " + zip_file_path + "{")
+    root.digraph()
     print("}")
